@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+require_once('signupConfig.php');
+$data = new signupConfig();
+$fetchAll = $data->fetchAll();
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +19,7 @@
     <div class="crud">
         <div class="intro text-center mt-3">
             <h1>List of all records</h1>
-            <a href="addnew.html" class="btn btn-success">Add New</a>
+            <a href="addnew.php" class="btn btn-success">Add New</a>
         </div>
         <table class="table">
             <thead>
@@ -26,13 +31,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">Afsar</th>
-                    <td>Uddin</td>
-                    <td>Dhaka, uttara</td>
-                    <td><button class="btn btn-danger">Delete</button> <button class="btn btn-primary">Update</button>
-                    </td>
-                </tr>
+                <?php foreach ($fetchAll as $single) {
+                ?>
+                    <tr>
+                        <th scope="row"><?php echo $single['firstName']; ?></th>
+                        <td><?php echo $single['lastName']; ?></td>
+                        <td><?php echo $single['address']; ?></td>
+                        <td><a href="delete.php?id=<?=$single['id'] ?>&req=delete" class="btn btn-danger">Delete</a> <a href="#" class="btn btn-primary">Update</a>
+                        </td>
+                    </tr>
+                <?php
+
+                } ?>
             </tbody>
         </table>
     </div>
